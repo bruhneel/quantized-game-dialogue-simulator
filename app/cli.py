@@ -10,7 +10,17 @@ def main(argv: list[str] | None = None) -> None:
     train_parser = sub.add_parser("train", help="train the local GPT on CPU")
     train_parser.add_argument("--steps", type=int, default=700)
     train_parser.add_argument("--seed", type=int, default=42)
+    generate_parser = sub.add_parser("generate", help="sample dialogue from a trained checkpoint")
+    generate_parser.add_argument("--prompt", default="Guard:")
+    generate_parser.add_argument("--tokens", type=int, default=200)
+    generate_parser.add_argument("--temperature", type=float, default=0.8)
+    generate_parser.add_argument("--top-k", type=int, default=12)
+    generate_parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args(argv)
+    if args.command == "generate":
+        from app.storage import generate
+
+        print(generate(args.prompt, args.tokens, args.temperature, args.top_k, args.seed))
     if args.command == "train":
         from app.storage import train
 

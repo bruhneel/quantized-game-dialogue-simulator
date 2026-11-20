@@ -41,9 +41,18 @@ def test_milestone_2():
 
 
 # Milestone 3: Generate sample dialogue from the trained GPT.
-@pytest.mark.skip(reason="remove this line when you start milestone 3")
 def test_milestone_3():
-    raise NotImplementedError("write the test for milestone 3")
+    import torch
+
+    from app.core import GPT, GPTConfig, generate_ids
+
+    torch.manual_seed(42)
+    model = GPT(GPTConfig(6, context=8, width=16, heads=4, layers=1))
+    args = (model, [1, 2], 17)
+    ids = generate_ids(*args, top_k=3)
+    assert len(ids) == 17
+    assert all(0 <= token < 6 for token in ids)
+    assert ids == generate_ids(*args, top_k=3)
 
 
 # Milestone 4: Apply dynamic and static post-training quantization to the model.

@@ -70,3 +70,42 @@ def train(steps: int = 700, seed: int = 42) -> None:
     torch.save({"config": asdict(model.config), "alphabet": tokenizer.alphabet,
                 "state": model.state_dict()}, "artifacts/fp32.pt")
     write_json(Path("results/training.json"), {"seed": seed, "history": history})
+
+
+def load_model(variant: str = "fp32") -> tuple:
+    """Load a locally saved inference model and its tokenizer."""
+    import torch
+
+    from app.core import GPT, GPTConfig, Tokenizer
+
+    path = Path("artifacts") / f"{variant}.pt"
+    if not path.is_file():
+        raise FileNotFoundError(f"{path} is missing. Train and quantize before inference.")
+    checkpoint = torch.load(path, map_location="cpu", weights_only=True)
+    model = GPT(GPTConfig(**checkpoint["config"]))
+    model.load_state_dict(checkpoint["state"])
+    return model.eval(), Tokenizer(checkpoint["alphabet"])
+
+
+def generate(
+    prompt: str, tokens: int, temperature: float, top_k: int, seed: int,
+    variant: str = "fp32"
+) -> str:
+    """Return the prompt and sampled continuation."""
+    import torch
+
+    from app.core import generate_ids
+
+    torch.set_num_threads(2)
+    model, tokenizer = load_model(variant)
+    continuation = generate_ids(model, tokenizer.encode(prompt), tokens, temperature, top_k, seed)
+    return prompt + tokenizer.decode(continuation)
+
+
+def save_samples() -> None:
+    """Save representative, unedited continuations from five NPC prompts."""
+    prompts = ("Guard:", "Shopkeeper:", "Quest Giver:", "Companion:", "Villain:")
+    samples = [generate(prompt, 110, 0.65, 8, 42 + i) for i, prompt in enumerate(prompts)]
+    path = Path("results/samples_original.txt")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n\n".join(samples) + "\n", encoding="utf-8")

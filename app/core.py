@@ -155,10 +155,24 @@ def train_model(
     return history
 
 
-# --- Milestone 3: Generate sample dialogue from the trained GPT.
-# Hint: Use the trained model for text generation.
-def milestone_3():  # TODO(milestone 3)
-    raise NotImplementedError("TODO(milestone 3)")
+@torch.inference_mode()
+def generate_ids(
+    model: GPT, prompt: list[int], tokens: int, temperature: float = 0.8,
+    top_k: int = 12, seed: int = 42
+) -> list[int]:
+    """Sample one token at a time from the rolling context window."""
+    if not prompt or tokens < 0 or temperature <= 0 or top_k < 1:
+        raise ValueError("Provide a prompt, non-negative token count, and positive temperature/top-k.")
+    model.eval()
+    generator = torch.Generator().manual_seed(seed)
+    ids = list(prompt)
+    for _ in range(tokens):
+        window = torch.tensor([ids[-model.config.context:]])
+        scores = model(window)[0, -1] / temperature
+        values, candidates = scores.topk(min(top_k, len(scores)))
+        sampled = torch.multinomial(values.softmax(dim=0), 1, generator=generator)
+        ids.append(int(candidates[sampled].item()))
+    return ids[len(prompt):]
 
 
 # --- Milestone 4: Apply dynamic and static post-training quantization to the model.
