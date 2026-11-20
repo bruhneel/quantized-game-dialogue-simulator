@@ -1,10 +1,6 @@
-"""Your tests. Each milestone in README.md gets one here: write the test first, then make it pass.
-
-They start skipped. Remove the `skip` line as you work on each milestone.
-"""
+"""Regression tests for the dialogue pipeline."""
 import pytest
 
-# Milestone 1: Prepare a small game dialogue text corpus.
 def test_milestone_1():
     from app.core import Tokenizer, clean_dialogue, split_dialogue
 
@@ -21,7 +17,6 @@ def test_milestone_1():
     assert tokenizer.decode(tokenizer.encode(text)) == text
 
 
-# Milestone 2: Implement a basic GPT architecture and train it on the corpus.
 def test_milestone_2():
     import torch
 
@@ -40,7 +35,6 @@ def test_milestone_2():
     assert history[-1]["val_loss"] < 0.3 * history[0]["val_loss"]
 
 
-# Milestone 3: Generate sample dialogue from the trained GPT.
 def test_milestone_3():
     import torch
 
@@ -55,7 +49,6 @@ def test_milestone_3():
     assert ids == generate_ids(*args, top_k=3)
 
 
-# Milestone 4: Apply dynamic and static post-training quantization to the model.
 @pytest.mark.parametrize("variant", ["dynamic", "static"])
 def test_milestone_4(variant):
     import torch
@@ -82,7 +75,6 @@ def test_milestone_4(variant):
     assert len(generate_ids(quantized, [1, 2], 5)) == 5
 
 
-# Milestone 5: Measure and compare the original and quantized model sizes.
 def test_milestone_5():
     from app.core import GPT, GPTConfig, model_size, quantized_model
 
@@ -96,7 +88,6 @@ def test_milestone_5():
     assert sum(static["bytes_by_dtype"].values()) == static["model_bytes"]
 
 
-# Milestone 6: Simulate inference speed by comparing operations on original versus quantized weights.
 def test_milestone_6():
     from app.core import GPT, GPTConfig, quantized_model, simulate_generation
 

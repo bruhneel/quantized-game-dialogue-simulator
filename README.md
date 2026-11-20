@@ -1,6 +1,6 @@
 # Quantized Game Dialogue Simulator
 
-[![Built with askThili](https://ask.thili.ai/api/v1/public/projects/rcxwvusdev/badge.svg)](https://ask.thili.ai/b/rcxwvusdev)
+[![Built with askThili](https://msrit.ask.thili.ai/api/v1/public/projects/rcxwvusdev/badge.svg)](https://msrit.ask.thili.ai/b/rcxwvusdev)
 
 Train a 240,000-parameter GPT on original NPC dialogue, generate dialogue from prompts, and compare FP32 with dynamic and calibrated static INT8. The CLI runs entirely on CPU and requires no hosting or API keys.
 
