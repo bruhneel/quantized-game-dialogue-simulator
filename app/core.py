@@ -294,7 +294,39 @@ def model_size(model: GPT) -> dict:
     }
 
 
-# --- Milestone 6: Simulate inference speed by comparing operations on original versus quantized weights.
-# Hint: Estimate computational cost based on data types.
-def milestone_6():  # TODO(milestone 6)
-    raise NotImplementedError("TODO(milestone 6)")
+DEVICE_PROFILE = {
+    "fp32_mac_per_second": 100e6,
+    "int8_mac_per_second": 400e6,
+    "weight_bytes_per_second": 200e6,
+    "activation_elements_per_second": 80e6,
+}
+
+
+def simulate_generation(model: GPT, variant: str) -> dict:
+    """Estimate one uncached decoding step at full context on a hypothetical device."""
+    config = model.config
+    length, width = config.context, config.width
+    linear_layers = [layer for layer in model.modules() if isinstance(layer, (nn.Linear, Int8Linear))]
+    linear_macs = length * sum(layer.weight.numel() for layer in linear_layers)
+    attention_macs = 2 * config.layers * length * length * width
+    is_quantized = variant != "fp32"
+    quantized_elements = length * sum(layer.weight.shape[1] for layer in linear_layers)
+    activation_work = (3 if variant == "dynamic" else 1) * quantized_elements if is_quantized else 0
+    fp32_macs = attention_macs + (0 if is_quantized else linear_macs)
+    int8_macs = linear_macs if is_quantized else 0
+    footprint = model_size(model)["model_bytes"]
+    seconds = (
+        fp32_macs / DEVICE_PROFILE["fp32_mac_per_second"]
+        + int8_macs / DEVICE_PROFILE["int8_mac_per_second"]
+        + footprint / DEVICE_PROFILE["weight_bytes_per_second"]
+        + activation_work / DEVICE_PROFILE["activation_elements_per_second"]
+    )
+    return {
+        "context": length,
+        "fp32_macs_per_token": fp32_macs,
+        "int8_macs_per_token": int8_macs,
+        "flop_equivalent_per_token": 2 * (fp32_macs + int8_macs),
+        "activation_elements_per_token": activation_work,
+        "assumed_weight_bytes_per_token": footprint,
+        "simulated_tokens_per_second": 1 / seconds,
+    }

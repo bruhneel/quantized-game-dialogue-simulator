@@ -172,3 +172,64 @@ def report_size() -> str:
     report = "\n".join(table) + "\n"
     path.with_suffix(".md").write_text(report, encoding="utf-8")
     return report
+
+
+def report_speed() -> str:
+    """Measure unbatched CPU generation and simulate the same full context."""
+    import platform
+    from statistics import median
+    from time import perf_counter
+
+    import torch
+
+    from app.core import DEVICE_PROFILE, generate_ids, simulate_generation
+
+    torch.set_num_threads(2)
+    steps, repetitions = 80, 3
+    rows = []
+    for variant in VARIANTS:
+        model, tokenizer = load_model(variant)
+        text = "Guard: The north bridge is closed. Show your pass at the ferry dock.\n"
+        prompt = tokenizer.encode(text)[-model.config.context:]
+        generate_ids(model, prompt, 10)
+        durations = []
+        for _ in range(repetitions):
+            start = perf_counter()
+            generate_ids(model, prompt, steps)
+            durations.append(perf_counter() - start)
+        rows.append({
+            "variant": variant, **simulate_generation(model, variant),
+            "measured_seconds": durations,
+            "measured_tokens_per_second": steps / median(durations),
+        })
+
+    host = f"{platform.system()} {platform.release()} {platform.machine()}"
+    path = Path("results/speed_report.json")
+    write_json(path, {
+        "device_profile": DEVICE_PROFILE, "host": host, "torch_version": str(torch.__version__),
+        "cpu_threads": 2, "new_tokens_per_repeat": steps, "rows": rows,
+    })
+    table = [
+        "# Generation speed comparison", "",
+        f"Measured on {host}, PyTorch {torch.__version__}, CPU with two threads.",
+        f"Batch size one, context filled from the first step, 10 warm-up tokens, and median latency across {repetitions} runs of {steps} new tokens.", "",
+        "| Model | FP32 MAC/token | INT8 MAC/token | FLOP-equivalent/token | Simulated tok/s | Laptop tok/s |",
+        "| --- | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for row in rows:
+        table.append(
+            f'| {row["variant"]} | {row["fp32_macs_per_token"]:,} | {row["int8_macs_per_token"]:,} | '
+            f'{row["flop_equivalent_per_token"]:,} | {row["simulated_tokens_per_second"]:.2f} | '
+            f'{row["measured_tokens_per_second"]:.2f} |'
+        )
+    table += [
+        "", "Device assumptions: 100M FP32 MAC/s, 400M INT8 MAC/s, 200 MB/s of weight bandwidth, "
+        "and 80M activation elements/s. Compute, weight reads, and activation conversion times are added.",
+        "Dynamic quantization models two extra passes for range lookup. A full tensor footprint is charged per step.",
+        "Attention uses a dense MAC estimate, including masked positions. Two arithmetic operations per MAC are counted.",
+        "The simulator omits caching, cache reuse, kernel overhead and several elementwise ops.",
+        "On the laptop, both INT8 paths widen packed weights and activations to int32 for reference matmul.",
+    ]
+    report = "\n".join(table) + "\n"
+    path.with_suffix(".md").write_text(report, encoding="utf-8")
+    return report

@@ -1,0 +1,62 @@
+{
+  "device_profile": {
+    "fp32_mac_per_second": 100000000.0,
+    "int8_mac_per_second": 400000000.0,
+    "weight_bytes_per_second": 200000000.0,
+    "activation_elements_per_second": 80000000.0
+  },
+  "host": "Darwin 27.2.0 arm64",
+  "torch_version": "2.15.0",
+  "cpu_threads": 2,
+  "new_tokens_per_repeat": 80,
+  "rows": [
+    {
+      "variant": "fp32",
+      "context": 64,
+      "fp32_macs_per_token": 16048128,
+      "int8_macs_per_token": 0,
+      "flop_equivalent_per_token": 32096256,
+      "activation_elements_per_token": 0,
+      "assumed_weight_bytes_per_token": 960000,
+      "simulated_tokens_per_second": 6.050291962888961,
+      "measured_seconds": [
+        0.034086375002516434,
+        0.03458708299876889,
+        0.03449158299918054
+      ],
+      "measured_tokens_per_second": 2319.406447709305
+    },
+    {
+      "variant": "dynamic",
+      "context": 64,
+      "fp32_macs_per_token": 1572864,
+      "int8_macs_per_token": 14475264,
+      "flop_equivalent_per_token": 32096256,
+      "activation_elements_per_token": 276480,
+      "assumed_weight_bytes_per_token": 288592,
+      "simulated_tokens_per_second": 17.600750214377136,
+      "measured_seconds": [
+        0.19807304099958856,
+        0.20091649999812944,
+        0.1999394160011434
+      ],
+      "measured_tokens_per_second": 400.12120471304416
+    },
+    {
+      "variant": "static",
+      "context": 64,
+      "fp32_macs_per_token": 1572864,
+      "int8_macs_per_token": 14475264,
+      "flop_equivalent_per_token": 32096256,
+      "activation_elements_per_token": 92160,
+      "assumed_weight_bytes_per_token": 288664,
+      "simulated_tokens_per_second": 18.34454429583733,
+      "measured_seconds": [
+        0.18786133300454821,
+        0.18645595899579348,
+        0.1893189159964095
+      ],
+      "measured_tokens_per_second": 425.84601482660173
+    }
+  ]
+}

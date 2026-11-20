@@ -19,7 +19,24 @@ def main(argv: list[str] | None = None) -> None:
     generate_parser.add_argument("--variant", choices=("fp32", "dynamic", "static"), default="fp32")
     sub.add_parser("quantize", help="create dynamic and calibrated static INT8 checkpoints")
     sub.add_parser("report-size", help="compare tensor and checkpoint sizes")
+    sub.add_parser("simulate-speed", help="compare modeled device speed and measured laptop speed")
+    pipeline_parser = sub.add_parser("run-all", help="run preparation, training, and both reports")
+    pipeline_parser.add_argument("--steps", type=int, default=700)
+    pipeline_parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args(argv)
+    if args.command == "simulate-speed":
+        from app.storage import report_speed
+
+        print(report_speed())
+    if args.command == "run-all":
+        from app.storage import prepare_data, quantize, report_size, report_speed, save_samples, train
+
+        prepare_data()
+        train(args.steps, args.seed)
+        save_samples()
+        quantize()
+        print(report_size())
+        print(report_speed())
     if args.command == "report-size":
         from app.storage import report_size
 

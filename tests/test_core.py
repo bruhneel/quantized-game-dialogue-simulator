@@ -97,7 +97,17 @@ def test_milestone_5():
 
 
 # Milestone 6: Simulate inference speed by comparing operations on original versus quantized weights.
-@pytest.mark.skip(reason="remove this line when you start milestone 6")
 def test_milestone_6():
-    raise NotImplementedError("write the test for milestone 6")
+    from app.core import GPT, GPTConfig, quantized_model, simulate_generation
 
+    model = GPT(GPTConfig(8, context=8, width=16, heads=4, layers=1))
+    fp32 = simulate_generation(model, "fp32")
+    dynamic = simulate_generation(quantized_model(model, "dynamic"), "dynamic")
+    static = simulate_generation(quantized_model(model, "static"), "static")
+
+    assert fp32["fp32_macs_per_token"] == 8 * (12 * 16**2 + 16 * 8) + 2 * 8**2 * 16
+    assert fp32["int8_macs_per_token"] == 0
+    assert dynamic["fp32_macs_per_token"] == static["fp32_macs_per_token"] == 2 * 8**2 * 16
+    assert fp32["flop_equivalent_per_token"] == dynamic["flop_equivalent_per_token"]
+    assert dynamic["activation_elements_per_token"] == 3 * static["activation_elements_per_token"]
+    assert static["simulated_tokens_per_second"] > dynamic["simulated_tokens_per_second"] > fp32["simulated_tokens_per_second"]
