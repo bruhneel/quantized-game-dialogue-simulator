@@ -18,7 +18,12 @@ def main(argv: list[str] | None = None) -> None:
     generate_parser.add_argument("--seed", type=int, default=42)
     generate_parser.add_argument("--variant", choices=("fp32", "dynamic", "static"), default="fp32")
     sub.add_parser("quantize", help="create dynamic and calibrated static INT8 checkpoints")
+    sub.add_parser("report-size", help="compare tensor and checkpoint sizes")
     args = parser.parse_args(argv)
+    if args.command == "report-size":
+        from app.storage import report_size
+
+        print(report_size())
     if args.command == "quantize":
         from app.storage import quantize
 

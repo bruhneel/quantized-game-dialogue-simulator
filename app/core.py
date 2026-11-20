@@ -269,10 +269,29 @@ def quantized_model(
     return result
 
 
-# --- Milestone 5: Measure and compare the original and quantized model sizes.
-# Hint: Calculate the memory footprint of model weights.
-def milestone_5():  # TODO(milestone 5)
-    raise NotImplementedError("TODO(milestone 5)")
+def model_size(model: GPT) -> dict:
+    """Count persisted weight, bias, and quantization metadata bytes by dtype."""
+    dtypes: dict[str, int] = {}
+    weight_count = 0
+    weight_bytes = 0
+    metadata_bytes = 0
+    for name, tensor in model.state_dict().items():
+        count = tensor.numel()
+        size = count * tensor.element_size()
+        dtype = str(tensor.dtype).removeprefix("torch.")
+        dtypes[dtype] = dtypes.get(dtype, 0) + size
+        if name.endswith((".weight_scale", ".activation_scale", ".activation_zero")):
+            metadata_bytes += size
+        else:
+            weight_count += count
+            weight_bytes += size
+    return {
+        "parameter_count": weight_count,
+        "weight_bytes": weight_bytes,
+        "metadata_bytes": metadata_bytes,
+        "model_bytes": weight_bytes + metadata_bytes,
+        "bytes_by_dtype": dtypes,
+    }
 
 
 # --- Milestone 6: Simulate inference speed by comparing operations on original versus quantized weights.

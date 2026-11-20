@@ -136,3 +136,39 @@ def quantize() -> None:
              "state": converted.state_dict()},
             Path("artifacts") / f"{variant}.pt",
         )
+
+
+VARIANTS = ("fp32", "dynamic", "static")
+
+
+def report_size() -> str:
+    """Write model tensor footprint and actual serialized file sizes."""
+    from app.core import model_size
+
+    rows = []
+    for variant in VARIANTS:
+        model, _ = load_model(variant)
+        rows.append({"variant": variant, **model_size(model),
+                     "file_bytes": (Path("artifacts") / f"{variant}.pt").stat().st_size})
+    original = rows[0]
+    for row in rows:
+        row["tensor_compression"] = original["model_bytes"] / row["model_bytes"]
+        row["file_compression"] = original["file_bytes"] / row["file_bytes"]
+    path = Path("results/size_report.json")
+    write_json(path, {"units": "bytes", "variants": rows})
+    table = [
+        "# Model size comparison", "",
+        "Tensor bytes include persistent scales and zero points. File bytes include checkpoint overhead.",
+        "The inventory excludes runtime activations and temporary buffers.", "",
+        "| Model | Parameters | Weights (B) | Metadata (B) | Tensor total (B) | File (B) | Tensor ratio | File ratio |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+    ]
+    for row in rows:
+        table.append(
+            f'| {row["variant"]} | {row["parameter_count"]:,} | {row["weight_bytes"]:,} | '
+            f'{row["metadata_bytes"]:,} | {row["model_bytes"]:,} | {row["file_bytes"]:,} | '
+            f'{row["tensor_compression"]:.2f}× | {row["file_compression"]:.2f}× |'
+        )
+    report = "\n".join(table) + "\n"
+    path.with_suffix(".md").write_text(report, encoding="utf-8")
+    return report

@@ -1,0 +1,47 @@
+{
+  "units": "bytes",
+  "variants": [
+    {
+      "variant": "fp32",
+      "parameter_count": 240000,
+      "weight_bytes": 960000,
+      "metadata_bytes": 0,
+      "model_bytes": 960000,
+      "bytes_by_dtype": {
+        "float32": 960000
+      },
+      "file_bytes": 968291,
+      "tensor_compression": 1.0,
+      "file_compression": 1.0
+    },
+    {
+      "variant": "dynamic",
+      "parameter_count": 240000,
+      "weight_bytes": 281472,
+      "metadata_bytes": 7120,
+      "model_bytes": 288592,
+      "bytes_by_dtype": {
+        "float32": 62416,
+        "int8": 226176
+      },
+      "file_bytes": 301041,
+      "tensor_compression": 3.326495536951821,
+      "file_compression": 3.2164754966931413
+    },
+    {
+      "variant": "static",
+      "parameter_count": 240000,
+      "weight_bytes": 281472,
+      "metadata_bytes": 7192,
+      "model_bytes": 288664,
+      "bytes_by_dtype": {
+        "float32": 62452,
+        "int8": 226176,
+        "int32": 36
+      },
+      "file_bytes": 304445,
+      "tensor_compression": 3.3256658260122496,
+      "file_compression": 3.1805120793575195
+    }
+  ]
+}

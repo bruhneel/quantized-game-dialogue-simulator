@@ -83,9 +83,17 @@ def test_milestone_4(variant):
 
 
 # Milestone 5: Measure and compare the original and quantized model sizes.
-@pytest.mark.skip(reason="remove this line when you start milestone 5")
 def test_milestone_5():
-    raise NotImplementedError("write the test for milestone 5")
+    from app.core import GPT, GPTConfig, model_size, quantized_model
+
+    model = GPT(GPTConfig(8, context=8, width=16, heads=4, layers=1))
+    original = model_size(model)
+    dynamic = model_size(quantized_model(model, "dynamic"))
+    static = model_size(quantized_model(model, "static"))
+    assert original["model_bytes"] == 4 * original["parameter_count"]
+    assert original["parameter_count"] == dynamic["parameter_count"] == static["parameter_count"]
+    assert dynamic["model_bytes"] < static["model_bytes"] < original["model_bytes"]
+    assert sum(static["bytes_by_dtype"].values()) == static["model_bytes"]
 
 
 # Milestone 6: Simulate inference speed by comparing operations on original versus quantized weights.
