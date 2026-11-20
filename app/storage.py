@@ -41,3 +41,32 @@ def prepare_data() -> dict:
     data = {"alphabet": tokenizer.alphabet, "splits": splits}
     write_json(Path("artifacts/dialogue.json"), data)
     return data
+
+
+def load_data() -> dict:
+    """Load the prepared dataset, creating it on the first run."""
+    path = Path("artifacts/dialogue.json")
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else prepare_data()
+
+
+def train(steps: int = 700, seed: int = 42) -> None:
+    """Train a seeded CPU model and save its state and training losses."""
+    from dataclasses import asdict
+
+    import torch
+
+    from app.core import GPT, GPTConfig, Tokenizer, train_model
+
+    torch.manual_seed(seed)
+    torch.set_num_threads(2)
+    data = load_data()
+    tokenizer = Tokenizer(data["alphabet"])
+    model = GPT(GPTConfig(tokenizer.size))
+    streams = {
+        name: torch.tensor(tokenizer.encode("\n".join(data["splits"][name]) + "\n"))
+        for name in ("train", "val")
+    }
+    history = train_model(model, streams["train"], streams["val"], steps, 16, seed)
+    torch.save({"config": asdict(model.config), "alphabet": tokenizer.alphabet,
+                "state": model.state_dict()}, "artifacts/fp32.pt")
+    write_json(Path("results/training.json"), {"seed": seed, "history": history})

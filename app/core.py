@@ -3,6 +3,10 @@ from dataclasses import dataclass
 import random
 import unicodedata
 
+import torch
+from torch import Tensor, nn
+from torch.nn import functional as F
+
 _QUOTES = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"'})
 
 
@@ -43,10 +47,112 @@ def split_dialogue(lines: list[str], seed: int = 42) -> dict[str, list[str]]:
     random.Random(seed).shuffle(shuffled)
     n = len(shuffled) // 10
     return {"train": shuffled[2 * n:], "val": shuffled[:n], "calibration": shuffled[n:2 * n]}
-# --- Milestone 2: Implement a basic GPT architecture and train it on the corpus.
-# Hint: Apply techniques from the 'Build GPT from Scratch' drill.
-def milestone_2():  # TODO(milestone 2)
-    raise NotImplementedError("TODO(milestone 2)")
+@dataclass(frozen=True)
+class GPTConfig:
+    vocab_size: int
+    context: int = 64
+    width: int = 96
+    heads: int = 4
+    layers: int = 2
+
+
+class CausalAttention(nn.Module):
+    """Multi-head attention with a causal mask shared by all heads."""
+
+    def __init__(self, config: GPTConfig) -> None:
+        super().__init__()
+        if config.width % config.heads:
+            raise ValueError("Model width must be divisible by the number of heads.")
+        self.heads = config.heads
+        self.qkv = nn.Linear(config.width, 3 * config.width)
+        self.output = nn.Linear(config.width, config.width)
+
+    def forward(self, x: Tensor) -> Tensor:
+        batch, length, width = x.shape
+        q, k, v = self.qkv(x).reshape(batch, length, 3, self.heads, width // self.heads).permute(2, 0, 3, 1, 4)
+        attended = F.scaled_dot_product_attention(q, k, v, is_causal=True)
+        return self.output(attended.transpose(1, 2).reshape(batch, length, width))
+
+
+class Block(nn.Module):
+    """Pre-normalized attention and feed-forward residual sublayers."""
+
+    def __init__(self, config: GPTConfig) -> None:
+        super().__init__()
+        self.norm1 = nn.LayerNorm(config.width)
+        self.attention = CausalAttention(config)
+        self.norm2 = nn.LayerNorm(config.width)
+        self.mlp = nn.Sequential(
+            nn.Linear(config.width, 4 * config.width), nn.GELU(),
+            nn.Linear(4 * config.width, config.width)
+        )
+
+    def forward(self, x: Tensor) -> Tensor:
+        x = x + self.attention(self.norm1(x))
+        return x + self.mlp(self.norm2(x))
+
+
+class GPT(nn.Module):
+    """Decoder-only model returning next-character logits at every position."""
+
+    def __init__(self, config: GPTConfig) -> None:
+        super().__init__()
+        self.config = config
+        self.tokens = nn.Embedding(config.vocab_size, config.width)
+        self.positions = nn.Embedding(config.context, config.width)
+        self.blocks = nn.Sequential(*(Block(config) for _ in range(config.layers)))
+        self.norm = nn.LayerNorm(config.width)
+        self.head = nn.Linear(config.width, config.vocab_size, bias=False)
+
+    def forward(self, ids: Tensor) -> Tensor:
+        positions = torch.arange(ids.shape[1], device=ids.device)
+        return self.head(self.norm(self.blocks(self.tokens(ids) + self.positions(positions))))
+
+
+def batch_from(
+    tokens: Tensor, context: int, batch_size: int, rng: torch.Generator
+) -> tuple[Tensor, Tensor]:
+    if len(tokens) <= context:
+        raise ValueError("Token stream must be longer than the context.")
+    starts = torch.randint(len(tokens) - context, (batch_size, 1), generator=rng)
+    offsets = starts + torch.arange(context + 1)
+    windows = tokens[offsets]
+    return windows[:, :-1], windows[:, 1:]
+
+
+def lm_loss(model: GPT, x: Tensor, targets: Tensor) -> Tensor:
+    logits = model(x)
+    return F.cross_entropy(logits.flatten(0, 1), targets.flatten())
+
+
+def train_model(
+    model: GPT, train: Tensor, val: Tensor, steps: int, batch_size: int, seed: int,
+    *, log: bool = True
+) -> list[dict[str, float | int]]:
+    """Train with AdamW and evaluate on fixed held-out windows."""
+    if steps < 1 or batch_size < 1:
+        raise ValueError("Steps and batch size must be positive.")
+    rng = torch.Generator().manual_seed(seed)
+    context = model.config.context
+    vx, vy = batch_from(val, context, 32, torch.Generator().manual_seed(seed + 1))
+    optimizer = torch.optim.AdamW(model.parameters(), lr=0.002)
+    history = []
+    for step in range(1, steps + 1):
+        model.train()
+        x, y = batch_from(train, context, batch_size, rng)
+        optimizer.zero_grad(set_to_none=True)
+        loss = lm_loss(model, x, y)
+        loss.backward()
+        nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        optimizer.step()
+        if step == 1 or step == steps or step % max(1, steps // 5) == 0:
+            model.eval()
+            with torch.no_grad():
+                val_loss = lm_loss(model, vx, vy).item()
+            history.append({"step": step, "train_loss": loss.item(), "val_loss": val_loss})
+            if log:
+                print(f"step {step:4d} train {loss.item():.4f} val {val_loss:.4f}")
+    return history
 
 
 # --- Milestone 3: Generate sample dialogue from the trained GPT.

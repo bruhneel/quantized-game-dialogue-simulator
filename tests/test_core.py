@@ -22,9 +22,22 @@ def test_milestone_1():
 
 
 # Milestone 2: Implement a basic GPT architecture and train it on the corpus.
-@pytest.mark.skip(reason="remove this line when you start milestone 2")
 def test_milestone_2():
-    raise NotImplementedError("write the test for milestone 2")
+    import torch
+
+    from app.core import GPT, GPTConfig, train_model
+
+    torch.set_num_threads(1)
+    torch.manual_seed(42)
+    model = GPT(GPTConfig(5, context=8, width=16, heads=4, layers=1))
+    ids = torch.tensor([[1, 2, 3, 4, 1, 2, 3, 4]])
+    changed = ids.clone()
+    changed[:, 4:] = 0
+    assert model(ids).shape == (1, 8, 5)
+    torch.testing.assert_close(model(ids)[:, :4], model(changed)[:, :4])
+    stream = ids.flatten().repeat(32)
+    history = train_model(model, stream, stream, 50, 4, 42, log=False)
+    assert history[-1]["val_loss"] < 0.3 * history[0]["val_loss"]
 
 
 # Milestone 3: Generate sample dialogue from the trained GPT.
