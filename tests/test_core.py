@@ -5,9 +5,20 @@ They start skipped. Remove the `skip` line as you work on each milestone.
 import pytest
 
 # Milestone 1: Prepare a small game dialogue text corpus.
-@pytest.mark.skip(reason="remove this line when you start milestone 1")
 def test_milestone_1():
-    raise NotImplementedError("write the test for milestone 1")
+    from app.core import Tokenizer, clean_dialogue, split_dialogue
+
+    assert clean_dialogue("  Guard:  “Halt!”\n\nGuard: \"Halt!\"\n  Wait.") == [
+        'Guard: "Halt!"', "Wait."
+    ]
+    lines = [f"Guard: report {i}" for i in range(30)]
+    splits = split_dialogue(lines)
+    assert splits == split_dialogue(lines)
+    assert [len(splits[key]) for key in ("train", "val", "calibration")] == [24, 3, 3]
+    assert sorted(sum(splits.values(), [])) == sorted(lines)
+    tokenizer = Tokenizer.fit(lines)
+    text = "\n".join(lines)
+    assert tokenizer.decode(tokenizer.encode(text)) == text
 
 
 # Milestone 2: Implement a basic GPT architecture and train it on the corpus.

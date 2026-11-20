@@ -24,3 +24,20 @@ class Store:
 
     def all(self) -> dict:
         return dict(sorted(self._read().items()))
+
+
+def write_json(path: Path, data: dict) -> None:
+    """Persist JSON to a local output directory."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+
+
+def prepare_data() -> dict:
+    """Prepare the original corpus and store the vocabulary and line splits."""
+    from app.core import Tokenizer, clean_dialogue, split_dialogue
+
+    splits = split_dialogue(clean_dialogue(Path("data/dialogue.txt").read_text(encoding="utf-8")))
+    tokenizer = Tokenizer.fit(splits["train"])
+    data = {"alphabet": tokenizer.alphabet, "splits": splits}
+    write_json(Path("artifacts/dialogue.json"), data)
+    return data

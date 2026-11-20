@@ -1,11 +1,48 @@
-"""Your code. One stub per milestone; build them in order and keep each one small."""
+"""Local data preparation, language modeling, and quantization."""
+from dataclasses import dataclass
+import random
+import unicodedata
 
-# --- Milestone 1: Prepare a small game dialogue text corpus.
-# Hint: Focus on cleaning and tokenizing your text data.
-def milestone_1():  # TODO(milestone 1)
-    raise NotImplementedError("TODO(milestone 1)")
+_QUOTES = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"'})
 
 
+def clean_dialogue(text: str) -> list[str]:
+    """Normalize punctuation and whitespace, preserving first occurrences."""
+    lines = unicodedata.normalize("NFKC", text).translate(_QUOTES).splitlines()
+    normalized = (" ".join(line.split()) for line in lines)
+    return list(dict.fromkeys(line for line in normalized if line))
+
+
+@dataclass(frozen=True)
+class Tokenizer:
+    """A reversible character vocabulary with a reserved unknown token."""
+
+    alphabet: str
+
+    @classmethod
+    def fit(cls, lines: list[str]) -> "Tokenizer":
+        return cls("".join(sorted(set("\n".join(lines)) | {"\n"})))
+
+    @property
+    def size(self) -> int:
+        return len(self.alphabet) + 1
+
+    def encode(self, text: str) -> list[int]:
+        lookup = {char: i for i, char in enumerate(self.alphabet, 1)}
+        return [lookup.get(char, 0) for char in text]
+
+    def decode(self, ids: list[int]) -> str:
+        return "".join(self.alphabet[i - 1] if i else "�" for i in ids)
+
+
+def split_dialogue(lines: list[str], seed: int = 42) -> dict[str, list[str]]:
+    """Split unique lines into disjoint training, validation and calibration sets."""
+    if len(lines) < 10:
+        raise ValueError("At least ten clean dialogue lines are required.")
+    shuffled = list(lines)
+    random.Random(seed).shuffle(shuffled)
+    n = len(shuffled) // 10
+    return {"train": shuffled[2 * n:], "val": shuffled[:n], "calibration": shuffled[n:2 * n]}
 # --- Milestone 2: Implement a basic GPT architecture and train it on the corpus.
 # Hint: Apply techniques from the 'Build GPT from Scratch' drill.
 def milestone_2():  # TODO(milestone 2)

@@ -1,0 +1,300 @@
+Quest Giver: I heard three bells at the bell orchard, then nothing from the brick observatory. Find out why.
+Guard: Nobody leaves the gatehouse until we hear the all-clear from the west parapet.
+Guard: Stand watch at the ferry dock. I'll send tea from the lower garden if we have any.
+Quest Giver: Take the ledger from the drowned gate and read it aloud at the bell orchard.
+Shopkeeper: If anyone asks, the flint tin was always yours. The waxed map is on the house.
+Companion: When this is over, remind me to trade the tin spoon for a frozen turnip.
+Guard: Keep your blade wrapped between the gatehouse and the north bridge.
+Shopkeeper: If anyone asks, the brass whistle was always yours. The moonseed loaf is on the house.
+Shopkeeper: The Saltwick lantern costs two moons. Bring back the ironwood peg and I'll call it even.
+Companion: When this is over, remind me to trade the sparrow charm for a paper crown.
+Quest Giver: Meet my sister at the tallow caves. If she isn't there, try the bell orchard.
+Guard: The ferry dock can wait. There are people trapped near the gatehouse.
+Guard: The gatehouse can wait. There are people trapped near the outer wall.
+Shopkeeper: The waxed map costs two moons. Bring back the brass whistle and I'll call it even.
+Quest Giver: Before you go to the mirror well, ask who still tends the miller's attic.
+Companion: You can carry the frozen turnip. I'll take the paper crown and make us something warm.
+Villain: I never wanted the cinder throne. I wanted to see you surrender the winter seal.
+Guard: Stand watch at the gatehouse. I'll send tea from the ash market if we have any.
+Villain: You can keep the moth court. By dawn I will own the hollow bell.
+Quest Giver: Before you go to the miller's attic, ask who still tends the drowned gate.
+Quest Giver: Meet my sister at the mirror well. If she isn't there, try the bell orchard.
+Shopkeeper: The riverglass compass costs two moons. Bring back the moonseed loaf and I'll call it even.
+Guard: The west parapet is closed. Show your pass at the candle stair.
+Companion: If we get separated, look for my sparrow charm. Leave the muddy satchel behind.
+Shopkeeper: Don't buy a ironwood peg from the ferry crew. Mine comes with a reed basket.
+Companion: I brought a frozen turnip. I have no idea where I put the muddy satchel.
+Quest Giver: The trail from the lost turnstile to the mirror well glows at dusk. Follow it without a torch.
+Guard: Stand watch at the lower garden. I'll send tea from the watch cellar if we have any.
+Quest Giver: Before you go to the old spillway, ask who still tends the lost turnstile.
+Guard: The lower garden is closed. Show your pass at the west parapet.
+Villain: I offered them the winter seal. They chose to hide behind the moth court.
+Villain: When I ring the white lantern, even the cinder throne will answer.
+Guard: Keep your blade wrapped between the harbor steps and the gatehouse.
+Companion: You can carry the broken fiddle. I'll take the muddy satchel and make us something warm.
+Villain: I offered them the hollow bell. They chose to hide behind the winter seal.
+Quest Giver: I heard three bells at the mirror well, then nothing from the old spillway. Find out why.
+Guard: Stand watch at the candle stair. I'll send tea from the west parapet if we have any.
+Guard: Keep your blade wrapped between the ferry dock and the north bridge.
+Guard: Keep your blade wrapped between the watch cellar and the gatehouse.
+Shopkeeper: This reed basket has survived three floods. The moonseed loaf has survived my apprentice.
+Shopkeeper: My aunt hid a Saltwick lantern under every floorboard. All I inherited was a brass whistle.
+Shopkeeper: The copper kettle costs two moons. Bring back the waxed map and I'll call it even.
+Companion: My brother would have laughed at that sparrow charm. He kept a tin spoon just like yours.
+Villain: I never wanted the hollow bell. I wanted to see you surrender the moth court.
+Shopkeeper: Don't buy a riverglass compass from the ferry crew. Mine comes with a reed basket.
+Guard: The ash market is closed. Show your pass at the ferry dock.
+Quest Giver: Don't promise to save the south kiln. Just get the children to the old spillway.
+Quest Giver: I heard three bells at the brick observatory, then nothing from the eel ferry. Find out why.
+Quest Giver: I heard three bells at the eel ferry, then nothing from the mirror well. Find out why.
+Guard: I heard you coming from the west parapet. The whole ash market probably did.
+Companion: I said I was fine. Then I tried to put my leaky boot inside my rope bracelet.
+Quest Giver: Meet my sister at the bell orchard. If she isn't there, try the eel ferry.
+Companion: I said I was fine. Then I tried to put my broken fiddle inside my pocket bell.
+Quest Giver: Don't promise to save the drowned gate. Just get the children to the eel ferry.
+Shopkeeper: I can trade you the riverglass compass now or wrap it with a Saltwick lantern for tomorrow.
+Quest Giver: The trail from the tallow caves to the south kiln glows at dusk. Follow it without a torch.
+Villain: I offered them the silver lock. They chose to hide behind the night ferry.
+Guard: Nobody leaves the west parapet until we hear the all-clear from the watch cellar.
+Villain: You can keep the white lantern. By dawn I will own the ash decree.
+Villain: Set the cinder throne on the table. The night ferry will tell me whether you lied.
+Shopkeeper: If anyone asks, the ironwood peg was always yours. The moonseed loaf is on the house.
+Quest Giver: I heard three bells at the miller's attic, then nothing from the old spillway. Find out why.
+Companion: I said I was fine. Then I tried to put my paper crown inside my striped scarf.
+Guard: The outer wall can wait. There are people trapped near the north bridge.
+Quest Giver: The trail from the drowned gate to the old spillway glows at dusk. Follow it without a torch.
+Guard: Nobody leaves the north bridge until we hear the all-clear from the west parapet.
+Companion: I brought a paper crown. I have no idea where I put the leaky boot.
+Villain: A city remembers whoever holds the empty crown. Nobody remembers the moth court.
+Villain: A city remembers whoever holds the night ferry. Nobody remembers the winter seal.
+Shopkeeper: This flint tin has survived three floods. The reed basket has survived my apprentice.
+Companion: My brother would have laughed at that tin spoon. He kept a sparrow charm just like yours.
+Villain: Set the winter seal on the table. The empty crown will tell me whether you lied.
+Guard: The west parapet can wait. There are people trapped near the harbor steps.
+Villain: I never wanted the moth court. I wanted to see you surrender the silver lock.
+Villain: A city remembers whoever holds the silent choir. Nobody remembers the silver lock.
+Shopkeeper: My aunt hid a reed basket under every floorboard. All I inherited was a flint tin.
+Companion: I said I was fine. Then I tried to put my rope bracelet inside my striped scarf.
+Companion: My brother would have laughed at that leaky boot. He kept a sparrow charm just like yours.
+Shopkeeper: Don't buy a Saltwick lantern from the ferry crew. Mine comes with a mothsilk cloak.
+Villain: When I ring the night ferry, even the silent choir will answer.
+Guard: The watch cellar can wait. There are people trapped near the west parapet.
+Companion: You can carry the sparrow charm. I'll take the broken fiddle and make us something warm.
+Companion: When this is over, remind me to trade the frozen turnip for a striped scarf.
+Companion: I said I was fine. Then I tried to put my muddy satchel inside my rope bracelet.
+Companion: When this is over, remind me to trade the rope bracelet for a sparrow charm.
+Companion: I said I was fine. Then I tried to put my striped scarf inside my broken fiddle.
+Quest Giver: I heard three bells at the tallow caves, then nothing from the mirror well. Find out why.
+Shopkeeper: The moonseed loaf costs two moons. Bring back the mothsilk cloak and I'll call it even.
+Villain: Set the hollow bell on the table. The ash decree will tell me whether you lied.
+Shopkeeper: The ironwood peg costs two moons. Bring back the Saltwick lantern and I'll call it even.
+Villain: Set the empty crown on the table. The silver lock will tell me whether you lied.
+Quest Giver: Don't promise to save the mirror well. Just get the children to the south kiln.
+Villain: When I ring the winter seal, even the hollow bell will answer.
+Shopkeeper: Don't buy a copper kettle from the ferry crew. Mine comes with a moonseed loaf.
+Villain: I never wanted the ash decree. I wanted to see you surrender the hollow bell.
+Villain: A city remembers whoever holds the white lantern. Nobody remembers the empty crown.
+Guard: I heard you coming from the watch cellar. The whole harbor steps probably did.
+Shopkeeper: If anyone asks, the riverglass compass was always yours. The copper kettle is on the house.
+Shopkeeper: If anyone asks, the Saltwick lantern was always yours. The moonseed loaf is on the house.
+Guard: I heard you coming from the harbor steps. The whole north bridge probably did.
+Guard: Nobody leaves the candle stair until we hear the all-clear from the ferry dock.
+Companion: You can carry the muddy satchel. I'll take the striped scarf and make us something warm.
+Villain: When I ring the silent choir, even the ash decree will answer.
+Companion: I brought a striped scarf. I have no idea where I put the paper crown.
+Companion: If we get separated, look for my rope bracelet. Leave the paper crown behind.
+Quest Giver: The trail from the bell orchard to the old spillway glows at dusk. Follow it without a torch.
+Guard: Nobody leaves the watch cellar until we hear the all-clear from the lower garden.
+Quest Giver: Take the ledger from the miller's attic and read it aloud at the mirror well.
+Villain: When I ring the ash decree, even the white lantern will answer.
+Villain: You can keep the cinder throne. By dawn I will own the silent choir.
+Guard: Stand watch at the harbor steps. I'll send tea from the west parapet if we have any.
+Guard: Nobody leaves the ash market until we hear the all-clear from the outer wall.
+Shopkeeper: If anyone asks, the waxed map was always yours. The riverglass compass is on the house.
+Guard: I heard you coming from the north bridge. The whole outer wall probably did.
+Quest Giver: Don't promise to save the old spillway. Just get the children to the eel ferry.
+Shopkeeper: This waxed map has survived three floods. The ironwood peg has survived my apprentice.
+Villain: Set the night ferry on the table. The moth court will tell me whether you lied.
+Guard: Keep your blade wrapped between the candle stair and the ash market.
+Shopkeeper: The reed basket costs two moons. Bring back the brass whistle and I'll call it even.
+Guard: The harbor steps is closed. Show your pass at the outer wall.
+Shopkeeper: My aunt hid a ironwood peg under every floorboard. All I inherited was a copper kettle.
+Villain: You can keep the empty crown. By dawn I will own the night ferry.
+Villain: A city remembers whoever holds the cinder throne. Nobody remembers the moth court.
+Villain: Set the ash decree on the table. The silent choir will tell me whether you lied.
+Guard: The candle stair can wait. There are people trapped near the watch cellar.
+Villain: When I ring the moth court, even the silent choir will answer.
+Shopkeeper: My aunt hid a brass whistle under every floorboard. All I inherited was a reed basket.
+Companion: If we get separated, look for my paper crown. Leave the sparrow charm behind.
+Shopkeeper: My aunt hid a moonseed loaf under every floorboard. All I inherited was a reed basket.
+Villain: A city remembers whoever holds the moth court. Nobody remembers the white lantern.
+Shopkeeper: This brass whistle has survived three floods. The ironwood peg has survived my apprentice.
+Quest Giver: The trail from the brick observatory to the old spillway glows at dusk. Follow it without a torch.
+Guard: Keep your blade wrapped between the outer wall and the watch cellar.
+Guard: Nobody leaves the lower garden until we hear the all-clear from the gatehouse.
+Guard: The gatehouse is closed. Show your pass at the watch cellar.
+Guard: Stand watch at the west parapet. I'll send tea from the outer wall if we have any.
+Companion: When this is over, remind me to trade the pocket bell for a paper crown.
+Shopkeeper: This copper kettle has survived three floods. The brass whistle has survived my apprentice.
+Quest Giver: Don't promise to save the miller's attic. Just get the children to the eel ferry.
+Guard: Keep your blade wrapped between the north bridge and the watch cellar.
+Shopkeeper: My aunt hid a copper kettle under every floorboard. All I inherited was a riverglass compass.
+Guard: The candle stair is closed. Show your pass at the outer wall.
+Shopkeeper: My aunt hid a flint tin under every floorboard. All I inherited was a riverglass compass.
+Companion: I said I was fine. Then I tried to put my frozen turnip inside my broken fiddle.
+Companion: I brought a broken fiddle. I have no idea where I put the leaky boot.
+Companion: I said I was fine. Then I tried to put my tin spoon inside my rope bracelet.
+Villain: You can keep the silent choir. By dawn I will own the night ferry.
+Guard: Keep your blade wrapped between the lower garden and the harbor steps.
+Quest Giver: Don't promise to save the lost turnstile. Just get the children to the brick observatory.
+Villain: You can keep the ash decree. By dawn I will own the silver lock.
+Companion: You can carry the pocket bell. I'll take the striped scarf and make us something warm.
+Quest Giver: Before you go to the eel ferry, ask who still tends the lost turnstile.
+Quest Giver: Before you go to the south kiln, ask who still tends the drowned gate.
+Villain: Set the moth court on the table. The cinder throne will tell me whether you lied.
+Quest Giver: Before you go to the bell orchard, ask who still tends the south kiln.
+Shopkeeper: I can trade you the ironwood peg now or wrap it with a riverglass compass for tomorrow.
+Companion: When this is over, remind me to trade the paper crown for a muddy satchel.
+Shopkeeper: The mothsilk cloak costs two moons. Bring back the moonseed loaf and I'll call it even.
+Shopkeeper: The flint tin costs two moons. Bring back the copper kettle and I'll call it even.
+Shopkeeper: If anyone asks, the reed basket was always yours. The riverglass compass is on the house.
+Villain: You can keep the hollow bell. By dawn I will own the silver lock.
+Shopkeeper: Don't buy a moonseed loaf from the ferry crew. Mine comes with a Saltwick lantern.
+Guard: Nobody leaves the harbor steps until we hear the all-clear from the candle stair.
+Companion: I brought a pocket bell. I have no idea where I put the leaky boot.
+Companion: My brother would have laughed at that rope bracelet. He kept a tin spoon just like yours.
+Shopkeeper: I can trade you the flint tin now or wrap it with a ironwood peg for tomorrow.
+Shopkeeper: I can trade you the moonseed loaf now or wrap it with a copper kettle for tomorrow.
+Quest Giver: Meet my sister at the lost turnstile. If she isn't there, try the drowned gate.
+Quest Giver: Before you go to the drowned gate, ask who still tends the mirror well.
+Quest Giver: I heard three bells at the lost turnstile, then nothing from the tallow caves. Find out why.
+Guard: Stand watch at the watch cellar. I'll send tea from the ferry dock if we have any.
+Shopkeeper: I can trade you the copper kettle now or wrap it with a ironwood peg for tomorrow.
+Companion: My brother would have laughed at that paper crown. He kept a pocket bell just like yours.
+Shopkeeper: I can trade you the brass whistle now or wrap it with a riverglass compass for tomorrow.
+Companion: When this is over, remind me to trade the leaky boot for a tin spoon.
+Companion: You can carry the paper crown. I'll take the frozen turnip and make us something warm.
+Quest Giver: I heard three bells at the old spillway, then nothing from the bell orchard. Find out why.
+Quest Giver: Meet my sister at the old spillway. If she isn't there, try the south kiln.
+Companion: When this is over, remind me to trade the broken fiddle for a rope bracelet.
+Companion: If we get separated, look for my striped scarf. Leave the muddy satchel behind.
+Companion: If we get separated, look for my tin spoon. Leave the muddy satchel behind.
+Shopkeeper: My aunt hid a mothsilk cloak under every floorboard. All I inherited was a ironwood peg.
+Quest Giver: I heard three bells at the drowned gate, then nothing from the south kiln. Find out why.
+Shopkeeper: Don't buy a reed basket from the ferry crew. Mine comes with a copper kettle.
+Quest Giver: Take the ledger from the tallow caves and read it aloud at the drowned gate.
+Villain: I offered them the empty crown. They chose to hide behind the silent choir.
+Guard: Stand watch at the north bridge. I'll send tea from the harbor steps if we have any.
+Villain: I never wanted the silver lock. I wanted to see you surrender the cinder throne.
+Shopkeeper: This moonseed loaf has survived three floods. The flint tin has survived my apprentice.
+Villain: A city remembers whoever holds the winter seal. Nobody remembers the night ferry.
+Villain: When I ring the empty crown, even the white lantern will answer.
+Villain: Set the silent choir on the table. The white lantern will tell me whether you lied.
+Villain: I never wanted the empty crown. I wanted to see you surrender the hollow bell.
+Quest Giver: Take the ledger from the mirror well and read it aloud at the tallow caves.
+Guard: Keep your blade wrapped between the west parapet and the lower garden.
+Companion: If we get separated, look for my leaky boot. Leave the pocket bell behind.
+Quest Giver: The trail from the eel ferry to the tallow caves glows at dusk. Follow it without a torch.
+Shopkeeper: My aunt hid a waxed map under every floorboard. All I inherited was a moonseed loaf.
+Companion: When this is over, remind me to trade the muddy satchel for a frozen turnip.
+Villain: I never wanted the winter seal. I wanted to see you surrender the silent choir.
+Villain: When I ring the cinder throne, even the silver lock will answer.
+Quest Giver: Before you go to the tallow caves, ask who still tends the lost turnstile.
+Villain: When I ring the hollow bell, even the white lantern will answer.
+Guard: I heard you coming from the candle stair. The whole harbor steps probably did.
+Guard: I heard you coming from the ferry dock. The whole harbor steps probably did.
+Companion: When this is over, remind me to trade the striped scarf for a rope bracelet.
+Quest Giver: Meet my sister at the south kiln. If she isn't there, try the lost turnstile.
+Guard: I heard you coming from the gatehouse. The whole ferry dock probably did.
+Quest Giver: Don't promise to save the eel ferry. Just get the children to the old spillway.
+Quest Giver: The trail from the south kiln to the mirror well glows at dusk. Follow it without a torch.
+Shopkeeper: If anyone asks, the mothsilk cloak was always yours. The copper kettle is on the house.
+Guard: Stand watch at the outer wall. I'll send tea from the lower garden if we have any.
+Quest Giver: I heard three bells at the south kiln, then nothing from the brick observatory. Find out why.
+Shopkeeper: Don't buy a flint tin from the ferry crew. Mine comes with a mothsilk cloak.
+Companion: If we get separated, look for my muddy satchel. Leave the broken fiddle behind.
+Companion: I brought a sparrow charm. I have no idea where I put the striped scarf.
+Companion: I said I was fine. Then I tried to put my sparrow charm inside my pocket bell.
+Guard: I heard you coming from the ash market. The whole north bridge probably did.
+Guard: I heard you coming from the outer wall. The whole candle stair probably did.
+Quest Giver: The trail from the miller's attic to the tallow caves glows at dusk. Follow it without a torch.
+Villain: A city remembers whoever holds the silver lock. Nobody remembers the winter seal.
+Quest Giver: Don't promise to save the brick observatory. Just get the children to the lost turnstile.
+Villain: I never wanted the silent choir. I wanted to see you surrender the moth court.
+Guard: Nobody leaves the outer wall until we hear the all-clear from the harbor steps.
+Companion: My brother would have laughed at that striped scarf. He kept a leaky boot just like yours.
+Companion: I said I was fine. Then I tried to put my pocket bell inside my broken fiddle.
+Shopkeeper: I can trade you the waxed map now or wrap it with a Saltwick lantern for tomorrow.
+Guard: The watch cellar is closed. Show your pass at the ash market.
+Quest Giver: Don't promise to save the tallow caves. Just get the children to the miller's attic.
+Villain: I offered them the white lantern. They chose to hide behind the winter seal.
+Villain: I never wanted the white lantern. I wanted to see you surrender the night ferry.
+Quest Giver: Meet my sister at the drowned gate. If she isn't there, try the lost turnstile.
+Companion: I brought a rope bracelet. I have no idea where I put the muddy satchel.
+Shopkeeper: This riverglass compass has survived three floods. The flint tin has survived my apprentice.
+Villain: You can keep the silver lock. By dawn I will own the ash decree.
+Villain: When I ring the silver lock, even the empty crown will answer.
+Guard: I heard you coming from the lower garden. The whole ferry dock probably did.
+Villain: A city remembers whoever holds the ash decree. Nobody remembers the empty crown.
+Shopkeeper: Don't buy a brass whistle from the ferry crew. Mine comes with a copper kettle.
+Guard: The lower garden can wait. There are people trapped near the ash market.
+Shopkeeper: If anyone asks, the moonseed loaf was always yours. The waxed map is on the house.
+Shopkeeper: I can trade you the Saltwick lantern now or wrap it with a reed basket for tomorrow.
+Guard: The ferry dock is closed. Show your pass at the watch cellar.
+Quest Giver: The trail from the old spillway to the miller's attic glows at dusk. Follow it without a torch.
+Guard: Nobody leaves the ferry dock until we hear the all-clear from the outer wall.
+Guard: The ash market can wait. There are people trapped near the gatehouse.
+Quest Giver: Take the ledger from the south kiln and read it aloud at the bell orchard.
+Quest Giver: Take the ledger from the lost turnstile and read it aloud at the south kiln.
+Quest Giver: Take the ledger from the brick observatory and read it aloud at the tallow caves.
+Shopkeeper: This mothsilk cloak has survived three floods. The brass whistle has survived my apprentice.
+Villain: Set the white lantern on the table. The hollow bell will tell me whether you lied.
+Companion: My brother would have laughed at that broken fiddle. He kept a frozen turnip just like yours.
+Villain: I offered them the night ferry. They chose to hide behind the ash decree.
+Villain: I offered them the ash decree. They chose to hide behind the winter seal.
+Quest Giver: Take the ledger from the eel ferry and read it aloud at the bell orchard.
+Villain: I offered them the moth court. They chose to hide behind the ash decree.
+Quest Giver: Don't promise to save the bell orchard. Just get the children to the mirror well.
+Villain: A city remembers whoever holds the hollow bell. Nobody remembers the silent choir.
+Quest Giver: Take the ledger from the old spillway and read it aloud at the tallow caves.
+Companion: If we get separated, look for my broken fiddle. Leave the striped scarf behind.
+Shopkeeper: If anyone asks, the copper kettle was always yours. The reed basket is on the house.
+Companion: You can carry the striped scarf. I'll take the sparrow charm and make us something warm.
+Guard: The north bridge can wait. There are people trapped near the candle stair.
+Shopkeeper: The brass whistle costs two moons. Bring back the waxed map and I'll call it even.
+Companion: My brother would have laughed at that frozen turnip. He kept a tin spoon just like yours.
+Villain: I offered them the cinder throne. They chose to hide behind the ash decree.
+Guard: The north bridge is closed. Show your pass at the ash market.
+Companion: You can carry the leaky boot. I'll take the broken fiddle and make us something warm.
+Companion: If we get separated, look for my frozen turnip. Leave the pocket bell behind.
+Quest Giver: Take the ledger from the bell orchard and read it aloud at the lost turnstile.
+Villain: I never wanted the night ferry. I wanted to see you surrender the empty crown.
+Shopkeeper: This ironwood peg has survived three floods. The brass whistle has survived my apprentice.
+Shopkeeper: My aunt hid a riverglass compass under every floorboard. All I inherited was a brass whistle.
+Shopkeeper: This Saltwick lantern has survived three floods. The waxed map has survived my apprentice.
+Guard: The harbor steps can wait. There are people trapped near the ferry dock.
+Guard: Stand watch at the ash market. I'll send tea from the watch cellar if we have any.
+Quest Giver: Meet my sister at the brick observatory. If she isn't there, try the mirror well.
+Shopkeeper: Don't buy a waxed map from the ferry crew. Mine comes with a reed basket.
+Guard: The outer wall is closed. Show your pass at the gatehouse.
+Companion: If we get separated, look for my pocket bell. Leave the tin spoon behind.
+Villain: I offered them the silent choir. They chose to hide behind the hollow bell.
+Villain: You can keep the winter seal. By dawn I will own the ash decree.
+Quest Giver: The trail from the mirror well to the eel ferry glows at dusk. Follow it without a torch.
+Villain: Set the silver lock on the table. The moth court will tell me whether you lied.
+Quest Giver: Meet my sister at the miller's attic. If she isn't there, try the south kiln.
+Villain: You can keep the night ferry. By dawn I will own the white lantern.
+Shopkeeper: I can trade you the reed basket now or wrap it with a mothsilk cloak for tomorrow.
+Shopkeeper: Don't buy a mothsilk cloak from the ferry crew. Mine comes with a flint tin.
+Quest Giver: Before you go to the lost turnstile, ask who still tends the eel ferry.
+Shopkeeper: I can trade you the mothsilk cloak now or wrap it with a waxed map for tomorrow.
+Companion: You can carry the tin spoon. I'll take the striped scarf and make us something warm.
+Quest Giver: Meet my sister at the eel ferry. If she isn't there, try the drowned gate.
+Quest Giver: Before you go to the brick observatory, ask who still tends the south kiln.
+Guard: Keep your blade wrapped between the ash market and the candle stair.
+Companion: I brought a leaky boot. I have no idea where I put the muddy satchel.
+Companion: I brought a muddy satchel. I have no idea where I put the leaky boot.
+Companion: You can carry the rope bracelet. I'll take the leaky boot and make us something warm.
+Companion: My brother would have laughed at that pocket bell. He kept a frozen turnip just like yours.
+Companion: I brought a tin spoon. I have no idea where I put the broken fiddle.
+Companion: My brother would have laughed at that muddy satchel. He kept a tin spoon just like yours.
