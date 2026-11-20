@@ -76,13 +76,15 @@ def load_model(variant: str = "fp32") -> tuple:
     """Load a locally saved inference model and its tokenizer."""
     import torch
 
-    from app.core import GPT, GPTConfig, Tokenizer
+    from app.core import GPT, GPTConfig, Tokenizer, quantized_model
 
     path = Path("artifacts") / f"{variant}.pt"
     if not path.is_file():
         raise FileNotFoundError(f"{path} is missing. Train and quantize before inference.")
     checkpoint = torch.load(path, map_location="cpu", weights_only=True)
     model = GPT(GPTConfig(**checkpoint["config"]))
+    if variant != "fp32":
+        model = quantized_model(model, variant)
     model.load_state_dict(checkpoint["state"])
     return model.eval(), Tokenizer(checkpoint["alphabet"])
 
@@ -109,3 +111,28 @@ def save_samples() -> None:
     path = Path("results/samples_original.txt")
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n\n".join(samples) + "\n", encoding="utf-8")
+
+
+def quantize() -> None:
+    """Save independently loadable dynamic and static INT8 checkpoints."""
+    from dataclasses import asdict
+
+    import torch
+
+    from app.core import quantized_model
+
+    torch.set_num_threads(2)
+    model, tokenizer = load_model()
+    lines = load_data()["splits"]["calibration"]
+    calibration = [
+        torch.tensor([tokenizer.encode(line + "\n")[start:start + model.config.context]])
+        for line in lines
+        for start in range(0, len(line) + 1, model.config.context)
+    ]
+    for variant in ("dynamic", "static"):
+        converted = quantized_model(model, variant, calibration)
+        torch.save(
+            {"config": asdict(model.config), "alphabet": tokenizer.alphabet,
+             "state": converted.state_dict()},
+            Path("artifacts") / f"{variant}.pt",
+        )

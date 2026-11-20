@@ -56,9 +56,30 @@ def test_milestone_3():
 
 
 # Milestone 4: Apply dynamic and static post-training quantization to the model.
-@pytest.mark.skip(reason="remove this line when you start milestone 4")
-def test_milestone_4():
-    raise NotImplementedError("write the test for milestone 4")
+@pytest.mark.parametrize("variant", ["dynamic", "static"])
+def test_milestone_4(variant):
+    import torch
+
+    from app.core import (
+        GPT, GPTConfig, Int8Linear, affine_qparams, dequantize_affine,
+        generate_ids, quantize_affine, quantized_model,
+    )
+
+    torch.manual_seed(42)
+    values = torch.linspace(-1, 2, 200)
+    scale, zero = affine_qparams(values.min(), values.max())
+    encoded = quantize_affine(values, scale, zero)
+    assert encoded.dtype == torch.int8
+    assert (dequantize_affine(encoded, scale, zero) - values).abs().max() <= scale * 0.501
+
+    model = GPT(GPTConfig(8, context=8, width=16, heads=4, layers=1)).eval()
+    ids = torch.tensor([[1, 2, 3, 4]])
+    quantized = quantized_model(model, variant, [ids])
+    assert isinstance(quantized.head, Int8Linear)
+    assert quantized.head.weight.dtype == torch.int8
+    assert torch.isfinite(quantized(ids)).all()
+    torch.testing.assert_close(quantized(ids), model(ids), atol=0.04, rtol=0.08)
+    assert len(generate_ids(quantized, [1, 2], 5)) == 5
 
 
 # Milestone 5: Measure and compare the original and quantized model sizes.

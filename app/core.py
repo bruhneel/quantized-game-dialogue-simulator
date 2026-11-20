@@ -175,10 +175,98 @@ def generate_ids(
     return ids[len(prompt):]
 
 
-# --- Milestone 4: Apply dynamic and static post-training quantization to the model.
-# Hint: Refer to the 'Shrink a Neural Network with Quantisation' drill.
-def milestone_4():  # TODO(milestone 4)
-    raise NotImplementedError("TODO(milestone 4)")
+def affine_qparams(low: Tensor, high: Tensor) -> tuple[Tensor, Tensor]:
+    """Map a range containing zero onto signed int8."""
+    low = low.clamp_max(0)
+    high = high.clamp_min(0)
+    scale = ((high - low) / 255).clamp_min(torch.finfo(low.dtype).eps)
+    zero = (-128 - low / scale).round().clamp(-128, 127).to(torch.int32)
+    return scale, zero
+
+
+def quantize_affine(x: Tensor, scale: Tensor, zero: Tensor) -> Tensor:
+    """Round and saturate a real-valued tensor to signed int8."""
+    return (x / scale + zero).round().clamp(-128, 127).to(torch.int8)
+
+
+def dequantize_affine(x: Tensor, scale: Tensor, zero: Tensor) -> Tensor:
+    """Reconstruct approximate real values from an affine int8 tensor."""
+    return (x.to(torch.int32) - zero) * scale
+
+
+class Int8Linear(nn.Module):
+    """CPU reference int8 linear with signed storage and int32 accumulation."""
+
+    def __init__(
+        self, linear: nn.Linear, activation_range: tuple[Tensor, Tensor] | None
+    ) -> None:
+        super().__init__()
+        weight = linear.weight.detach()
+        scale = (weight.abs().amax(dim=1, keepdim=True) / 127).clamp_min(1e-8)
+        self.register_buffer("weight", (weight / scale).round().clamp(-127, 127).to(torch.int8))
+        self.register_buffer("weight_scale", scale.flatten())
+        self.register_buffer("bias", None if linear.bias is None else linear.bias.detach().clone())
+        if activation_range is None:
+            self.register_buffer("activation_scale", None)
+            self.register_buffer("activation_zero", None)
+        else:
+            scale, zero = affine_qparams(*activation_range)
+            self.register_buffer("activation_scale", scale)
+            self.register_buffer("activation_zero", zero)
+
+    def forward(self, x: Tensor) -> Tensor:
+        if self.activation_scale is None:
+            scale, zero = affine_qparams(x.amin(), x.amax())
+        else:
+            scale, zero = self.activation_scale, self.activation_zero
+        integer_input = quantize_affine(x, scale, zero).to(torch.int32) - zero
+        integer_weight = self.weight.to(torch.int32)
+        output = (integer_input @ integer_weight.T).to(x.dtype) * (scale * self.weight_scale)
+        return output if self.bias is None else output + self.bias
+
+
+@torch.no_grad()
+def quantized_model(
+    model: GPT, variant: str, calibration: list[Tensor] | None = None
+) -> GPT:
+    """Quantize linear layers. A missing calibration creates a reload skeleton."""
+    from copy import deepcopy
+
+    if variant not in ("dynamic", "static"):
+        raise ValueError(f"Unknown quantization variant: {variant}")
+    result = deepcopy(model).eval()
+    layers = {name: layer for name, layer in result.named_modules() if isinstance(layer, nn.Linear)}
+    ranges: dict[str, tuple[Tensor, Tensor]] = {}
+
+    def observe(name: str, inputs: tuple[Tensor, ...]) -> None:
+        low, high = inputs[0].amin(), inputs[0].amax()
+        if name in ranges:
+            previous_low, previous_high = ranges[name]
+            low = torch.minimum(previous_low, low)
+            high = torch.maximum(previous_high, high)
+        ranges[name] = low, high
+
+    if variant == "static" and calibration is not None:
+        if not calibration:
+            raise ValueError("Static quantization requires calibration examples.")
+        handles = [
+            layer.register_forward_pre_hook(lambda module, inputs, key=name: observe(key, inputs))
+            for name, layer in layers.items()
+        ]
+        try:
+            for batch in calibration:
+                result(batch)
+        finally:
+            for handle in handles:
+                handle.remove()
+
+    for name, layer in layers.items():
+        activation_range = (
+            ranges.get(name, (torch.tensor(-1.0), torch.tensor(1.0)))
+            if variant == "static" else None
+        )
+        result.set_submodule(name, Int8Linear(layer, activation_range))
+    return result
 
 
 # --- Milestone 5: Measure and compare the original and quantized model sizes.

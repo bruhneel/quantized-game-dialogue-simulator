@@ -16,11 +16,17 @@ def main(argv: list[str] | None = None) -> None:
     generate_parser.add_argument("--temperature", type=float, default=0.8)
     generate_parser.add_argument("--top-k", type=int, default=12)
     generate_parser.add_argument("--seed", type=int, default=42)
+    generate_parser.add_argument("--variant", choices=("fp32", "dynamic", "static"), default="fp32")
+    sub.add_parser("quantize", help="create dynamic and calibrated static INT8 checkpoints")
     args = parser.parse_args(argv)
+    if args.command == "quantize":
+        from app.storage import quantize
+
+        quantize()
     if args.command == "generate":
         from app.storage import generate
 
-        print(generate(args.prompt, args.tokens, args.temperature, args.top_k, args.seed))
+        print(generate(args.prompt, args.tokens, args.temperature, args.top_k, args.seed, args.variant))
     if args.command == "train":
         from app.storage import train
 
